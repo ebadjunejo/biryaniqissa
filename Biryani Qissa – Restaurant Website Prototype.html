@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biryani Qissa | Every Grain Tells a Story (Prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf3e4;--bg2:#f3e4c6;--ink:#231f1b;--muted:#655a4e;--card:#fffaf0;--line:#e4d2ae;--saffron:#e8a317;--copper:#b8683a;--char:#1c1917;--cream:#fbf3e4;
+--serif:"Cormorant Garamond",Georgia,serif;--sans:"Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1613;--bg2:#221c18;--ink:#f6ead2;--muted:#bcae99;--card:#2a2320;--line:#3d3229}}
+:root[data-theme="dark"]{--bg:#1a1613;--bg2:#221c18;--ink:#f6ead2;--muted:#bcae99;--card:#2a2320;--line:#3d3229}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--ink);font:400 1.05rem/1.65 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--char);z-index:60}
+h1,h2,h3{font-family:var(--serif);line-height:1.08;font-weight:700}
+h2{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:.6rem}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--saffron);outline-offset:3px}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+section{padding:clamp(4.5rem,9vw,7.5rem) 0}
+.lead{color:var(--muted);max-width:56ch}
+.tag{display:inline-block;font-size:.82rem;color:var(--copper);border:1px solid var(--copper);border-radius:99px;padding:.15rem .75rem;margin-bottom:1rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;border-radius:99px;padding:.9rem 1.7rem;font-weight:600;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-p{background:var(--saffron);color:var(--char);box-shadow:0 8px 24px -8px rgba(232,163,23,.7)}
+.btn-p:hover{background:#f5b72e}
+.btn-g{background:transparent;color:var(--cream);border:1.5px solid rgba(251,243,228,.45)}
+.btn-g:hover{border-color:var(--saffron);color:var(--saffron)}
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:rgba(28,25,23,.9);backdrop-filter:blur(10px);color:var(--cream);border-bottom:1px solid rgba(184,104,58,.4)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none;font:700 1.45rem var(--serif)}
+.mono{width:38px;height:38px;border-radius:50%;background:var(--saffron);color:var(--char);display:grid;place-items:center;font:700 1.1rem var(--serif)}
+nav ul{display:flex;gap:1.8rem;list-style:none}
+nav a{text-decoration:none;font-size:.95rem;opacity:.85;transition:color .2s}
+nav a:hover{color:var(--saffron);opacity:1}
+.tools{display:flex;gap:.6rem;align-items:center}
+.cartbtn{background:none;border:1.5px solid var(--copper);color:var(--cream);border-radius:99px;padding:.4rem 1rem;font-size:.92rem;transition:background .2s}
+.cartbtn:hover{background:var(--copper)}
+.cartbtn b{background:var(--saffron);color:var(--char);border-radius:99px;padding:0 .5rem;margin-left:.3rem}
+.burger{display:none;background:none;border:0;color:var(--cream);font-size:1.6rem;line-height:1}
+/* hero */
+.hero{background:radial-gradient(60% 60% at 75% 50%,rgba(232,163,23,.22),transparent 70%),var(--char);color:var(--cream);padding:9rem 0 5rem;overflow:hidden}
+.hg{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
+.hero h1{font-size:clamp(3.2rem,8vw,6.2rem);margin:.4rem 0 1.2rem}
+.hero h1 em{color:var(--saffron);display:block}
+.hero p{color:#d9cdb8;max-width:46ch;margin-bottom:2rem}
+.cta{display:flex;flex-wrap:wrap;gap:.9rem}
+.note{font-size:.82rem;color:#a99c88;margin-top:1.6rem;max-width:44ch}
+.art svg{width:100%;height:auto;display:block}
+.hero .art{animation:float 7s ease-in-out infinite;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+.steam{fill:none;stroke:#fbf3e4;stroke-width:5;stroke-linecap:round;opacity:0;animation:steam 4s ease-out infinite}
+@keyframes steam{0%{opacity:0;transform:translateY(20px)}30%{opacity:.4}100%{opacity:0;transform:translateY(-30px)}}
+@keyframes float{50%{transform:translateY(-10px) rotate(.6deg)}}
+/* menu */
+#menu{background:var(--bg2)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:3rem}
+.item{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.item:hover{transform:translateY(-6px);box-shadow:0 22px 40px -22px rgba(35,31,27,.5)}
+.item .art{background:radial-gradient(circle at 50% 55%,#3a2c23,var(--char));padding:1.4rem}
+.item .body{padding:1.5rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+.item h3{font-size:1.75rem}
+.item p{color:var(--muted);font-size:.97rem;flex:1}
+.price{font:700 1.5rem var(--serif);color:var(--copper)}
+.price small{display:block;font:400 .78rem var(--sans);color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-top:.4rem}
+.add{background:var(--char);color:var(--cream);border:0;border-radius:99px;padding:.65rem 1.2rem;font-weight:500;transition:background .2s,transform .15s}
+.add:hover{background:var(--copper)}
+.add:active{transform:scale(.95)}
+.item.deal{background:var(--copper);border-color:var(--copper);color:#fff8ea}
+.item.deal p,.item.deal .price,.item.deal .price small{color:#fde9c9}
+.item.deal .add{background:var(--saffron);color:var(--char)}
+.deal .badge{align-self:flex-start;background:var(--char);color:var(--saffron);border-radius:99px;font-size:.78rem;padding:.1rem .7rem}
+/* story */
+.sg{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.sq{font:italic 600 clamp(1.8rem,3.6vw,2.7rem)/1.2 var(--serif);border-left:4px solid var(--saffron);padding-left:1.5rem;color:var(--copper)}
+.sg p+p{margin-top:1rem}
+/* why */
+#why{background:var(--char);color:var(--cream)}
+#why .lead{color:#c9bca7}
+#why .tag{color:var(--saffron);border-color:var(--saffron)}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:3rem;border-top:1px solid rgba(184,104,58,.5)}
+.why div{padding:2rem 2rem 0 0}
+.why h3{font-size:1.9rem;color:var(--saffron);margin-bottom:.5rem}
+.why p{color:#d3c7b3;font-size:.98rem}
+/* steps */
+.steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;counter-reset:s;position:relative}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:2rem 1.7rem;position:relative}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--saffron);color:var(--char);font:700 1.5rem var(--serif);margin-bottom:1rem}
+.steps h3{font-size:1.6rem;margin-bottom:.4rem}
+.steps p{color:var(--muted);font-size:.97rem}
+/* contact */
+#contact{background:var(--bg2)}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.box{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:2rem}
+.box dl{display:grid;gap:1.1rem}
+.box dt{font-weight:600;color:var(--copper)}
+.box dd{color:var(--muted)}
+.box.wa{display:flex;flex-direction:column;justify-content:center;gap:1rem;background:var(--char);color:var(--cream);border-color:var(--char)}
+.box.wa p{color:#cfc2ad}
+.btn-wa{background:#25d366;color:#07310f;align-self:flex-start}
+/* footer */
+footer{background:#120f0d;color:#bfb29d;padding:3.5rem 0 2rem;font-size:.95rem}
+.fg{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+.soc{display:flex;gap:.6rem;flex-wrap:wrap}
+.soc a{border:1px solid #4a3a2f;border-radius:99px;padding:.3rem .9rem;text-decoration:none;transition:border-color .2s,color .2s}
+.soc a:hover{border-color:var(--saffron);color:var(--saffron)}
+.fine{border-top:1px solid #2c231d;margin-top:2rem;padding-top:1.2rem;font-size:.82rem}
+/* drawer + modal */
+.veil{position:fixed;inset:0;background:rgba(10,8,6,.6);opacity:0;pointer-events:none;transition:opacity .3s;z-index:70}
+.veil.on{opacity:1;pointer-events:auto}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);z-index:80;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;padding:calc(1.5rem + env(safe-area-inset-top,0px)) 1.5rem calc(1.5rem + env(safe-area-inset-bottom,0px))}
+#drawer.on{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center}
+.x{background:none;border:0;color:var(--ink);font-size:1.8rem;line-height:1}
+.demo{background:rgba(232,163,23,.18);border:1px dashed var(--saffron);border-radius:12px;padding:.6rem .9rem;font-size:.85rem;margin:1rem 0}
+#lines{flex:1;overflow:auto;display:grid;gap:.8rem;align-content:start}
+.line{display:flex;justify-content:space-between;gap:1rem;align-items:center;border-bottom:1px solid var(--line);padding-bottom:.8rem}
+.qty{display:flex;align-items:center;gap:.6rem;margin-top:.3rem}
+.qty button{width:30px;height:30px;border-radius:50%;border:1px solid var(--copper);background:none;color:var(--ink)}
+.qty button:hover{background:var(--copper);color:#fff}
+.empty{color:var(--muted);padding:1rem 0}
+.tot{display:flex;justify-content:space-between;font:700 1.5rem var(--serif);margin:1rem 0}
+#modal{position:fixed;left:50%;top:50%;width:min(520px,100% - 2rem);max-height:86%;overflow:auto;background:var(--bg);border-radius:22px;padding:1.8rem;z-index:90;transform:translate(-50%,-46%) scale(.96);opacity:0;pointer-events:none;transition:.3s}
+#modal.on{transform:translate(-50%,-50%);opacity:1;pointer-events:auto}
+#modal h3{font-size:1.8rem;margin-bottom:.5rem}
+pre{white-space:pre-wrap;background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:1rem;font:.88rem/1.5 var(--sans);margin:1rem 0}
+code{display:block;word-break:break-all;font-size:.8rem;color:var(--muted);background:var(--bg2);padding:.6rem;border-radius:10px}
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);background:var(--char);color:var(--cream);padding:.7rem 1.3rem;border-radius:99px;opacity:0;transition:.3s;z-index:100;border:1px solid var(--saffron)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.rv.in{opacity:1;transform:none}
+@media (max-width:900px){
+.hg,.sg,.cg{grid-template-columns:1fr}
+.grid3,.why,.steps{grid-template-columns:1fr}
+.why div{padding:1.6rem 0 0}
+.hero{padding-top:7rem}
+.hero .art{max-width:420px;margin:0 auto}
+}
+@media (max-width:760px){
+.burger{display:block}
+nav{position:absolute;top:100%;left:0;right:0;background:var(--char);max-height:0;overflow:hidden;transition:max-height .35s}
+nav.open{max-height:340px;border-bottom:1px solid var(--copper)}
+nav ul{flex-direction:column;gap:0;padding:.5rem 1.25rem 1rem}
+nav a{display:block;padding:.7rem 0}
+.logo span.n{font-size:1.2rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap bar">
+<a href="#top" class="logo" aria-label="Biryani Qissa home"><span class="mono">BQ</span><span class="n">Biryani Qissa</span></a>
+<nav id="nav" aria-label="Main"><ul>
+<li><a href="#menu">Our Menu</a></li><li><a href="#story">Our Story</a></li><li><a href="#why">Why Us</a></li><li><a href="#order">How to Order</a></li><li><a href="#contact">Contact</a></li>
+</ul></nav>
+<div class="tools">
+<button class="cartbtn" id="openCart" aria-label="Open demo cart">Demo cart<b id="count">0</b></button>
+<button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+</div>
+</div>
+</header>
+
+<main id="top">
+<section class="hero">
+<div class="wrap hg">
+<div>
+<span class="tag" style="color:var(--saffron);border-color:var(--saffron)">Hyderabad, Sindh</span>
+<h1>Every Grain <em>Tells a Story.</em></h1>
+<p>Fragrant basmati, slow-layered masala and a plate made for sharing. Biryani Qissa is a concept for the way Hyderabad likes to eat: generous, aromatic and unhurried.</p>
+<div class="cta">
+<a href="#menu" class="btn btn-p">Explore Our Menu</a>
+<a href="#order" class="btn btn-g">Order Now</a>
+</div>
+<p class="note">Prototype note: this illustration stands in for professional food photography, which you would swap in before launch.</p>
+</div>
+<div class="art" data-plate="chicken" data-steam="1" role="img" aria-label="Illustration of a plate of chicken biryani"></div>
+</div>
+</section>
+
+<section id="menu">
+<div class="wrap">
+<span class="tag">Demo menu</span>
+<h2>Our Menu</h2>
+<p class="lead">Three fictional dishes to show how a menu section works. All prices are sample figures in Pakistani rupees (PKR), shown for illustration only.</p>
+<div class="grid3" id="menuGrid"></div>
+</div>
+</section>
+
+<section id="story">
+<div class="wrap sg">
+<p class="sq rv">A good biryani is never rushed, and neither is the meal around it.</p>
+<div class="rv">
+<h2>Our Story</h2>
+<p>Hyderabad is a city of long dinners, loud families and plates passed down the table. Biryani Qissa begins there, with a simple idea: rice, spice and patience can make an ordinary evening feel like an occasion.</p>
+<p>Each dish is imagined as a small story, from the first lift of the lid to the last spoonful shared across the table. This copy is placeholder text written for a teaching prototype; a real brand would replace it with its own founding story.</p>
+</div>
+</div>
+</section>
+
+<section id="why">
+<div class="wrap">
+<span class="tag">Proposed brand messaging</span>
+<h2>Why Choose Us</h2>
+<p class="lead">These are the promises the brand proposes to make. They are messaging ideas, not verified claims, and a real business would need to be able to prove each one.</p>
+<div class="why">
+<div class="rv"><h3>Freshly prepared</h3><p>The proposed promise: every pot cooked in small batches, close to the time it is served.</p></div>
+<div class="rv"><h3>Full of flavour</h3><p>The proposed promise: a balanced masala that is aromatic and rich without hiding the rice.</p></div>
+<div class="rv"><h3>Easy to order</h3><p>The proposed promise: choose your meal, send an enquiry and get a clear confirmation.</p></div>
+</div>
+</div>
+</section>
+
+<section id="order">
+<div class="wrap">
+<span class="tag">Ordering experience</span>
+<h2>Three simple steps</h2>
+<p class="lead">A short, clear journey keeps customers confident. Try it yourself by adding dishes to the demo cart above.</p>
+<ol class="steps">
+<li class="rv"><h3>Choose your meal</h3><p>Browse the menu and add your favourites to the demo cart.</p></li>
+<li class="rv"><h3>Place an enquiry</h3><p>Send your selection as a message, so the team can check availability and delivery to your area.</p></li>
+<li class="rv"><h3>Confirm your order</h3><p>The restaurant replies with the final price and timing. You confirm, and only then is the order placed.</p></li>
+</ol>
+</div>
+</section>
+
+<section id="contact">
+<div class="wrap">
+<span class="tag">Placeholder details</span>
+<h2>Contact</h2>
+<p class="lead">Every detail below is a placeholder to be replaced with real business information.</p>
+<div class="cg">
+<div class="box"><dl>
+<div><dt>Service area</dt><dd>Hyderabad, Sindh. Neighbourhoods to be confirmed.</dd></div>
+<div><dt>Opening hours</dt><dd>[Opening hours placeholder]</dd></div>
+<div><dt>Phone</dt><dd>+92 300 0000000 (placeholder number)</dd></div>
+</dl></div>
+<div class="box wa">
+<h3 style="font-size:1.9rem">Order on WhatsApp</h3>
+<p>This is a demonstration. The button shows the message a real WhatsApp link would prepare, and nothing is sent.</p>
+<button class="btn btn-wa" id="waBtn">Try the WhatsApp demo</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<div class="fg">
+<div><div class="logo" style="color:var(--cream);margin-bottom:.6rem"><span class="mono">BQ</span><span>Biryani Qissa</span></div>
+<p>Biryani, Hyderabad, Sindh, Pakistan.<br>A fictional brand concept for teaching.</p></div>
+<div><p style="margin-bottom:.6rem;color:var(--cream)">Social media (placeholders)</p>
+<div class="soc"><a href="#top">Instagram</a><a href="#top">Facebook</a><a href="#top">TikTok</a></div></div>
+</div>
+<p class="fine">Demonstration prototype. Not a real business: no orders, payments or customer data are handled. Prices and details are illustrative.</p>
+</div>
+</footer>
+
+<div class="veil" id="veil"></div>
+<aside id="drawer" aria-label="Demo cart" aria-hidden="true">
+<div class="dh"><h3 style="font-size:2rem">Demo cart</h3><button class="x" id="closeCart" aria-label="Close cart">&times;</button></div>
+<p class="demo">Demonstration only. Nothing is saved, paid for or sent, and the cart resets when you refresh the page.</p>
+<div id="lines"></div>
+<div class="tot"><span>Estimated total</span><span id="total">PKR 0</span></div>
+<button class="btn btn-p" id="enquire" style="justify-content:center">Preview demo enquiry</button>
+</aside>
+<div id="modal" role="dialog" aria-modal="true" aria-label="WhatsApp demo">
+<h3>WhatsApp demo</h3>
+<p class="lead" style="font-size:.95rem">On a live site, this button would open WhatsApp with the message below already typed. Here, nothing is sent.</p>
+<pre id="msg"></pre>
+<p style="font-size:.85rem;margin-bottom:.4rem">A real link follows this pattern (placeholder number):</p>
+<code id="link"></code>
+<div style="display:flex;gap:.7rem;margin-top:1.2rem;flex-wrap:wrap">
+<button class="btn btn-p" id="copy">Copy message</button>
+<button class="btn" id="closeModal" style="background:var(--bg2);color:var(--ink)">Close</button>
+</div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const MENU=[
+{id:"c",name:"Classic Chicken Biryani",desc:"Tender chicken layered with saffron-tinted basmati, fried onions and fresh mint.",price:450,v:"chicken"},
+{id:"b",name:"Special Beef Biryani",desc:"Slow-cooked beef in a deeper, bolder masala, finished with a squeeze of lemon.",price:550,v:"beef"},
+{id:"f",name:"Family Biryani Deal",desc:"A big shared pot with boiled eggs and raita. Sample deal for four people.",price:1800,v:"family",deal:1}
+];
+const cart={};
+const fmt=n=>"PKR "+n.toLocaleString("en-PK");
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function plate(v,steam){
+const r=rng(v.length*97+steam*13),fam=v==="family",meat=v==="beef"?["#8c3b1c","#a8502a"]:["#c4631f","#dd8236"];
+let s=`<svg viewBox="0 ${steam?-80:0} 400 ${steam?480:400}" xmlns="http://www.w3.org/2000/svg">`;
+if(steam)s+=[150,200,250].map((x,i)=>`<path class="steam" style="animation-delay:${i*1.2}s" d="M${x} 30c-18-22 18-40 0-62s18-34 0-50"/>`).join("");
+s+=fam?`<circle cx="200" cy="205" r="192" fill="#b8683a"/><circle cx="200" cy="205" r="172" fill="#6e3519"/><circle cx="200" cy="205" r="172" fill="none" stroke="#e8a317" stroke-opacity=".5" stroke-width="3"/>`
+:`<circle cx="200" cy="205" r="192" fill="#2a221e" stroke="#b8683a" stroke-width="4"/><circle cx="200" cy="205" r="170" fill="#352a24" stroke="#b8683a" stroke-opacity=".4"/>`;
+s+=`<ellipse cx="200" cy="200" rx="148" ry="132" fill="#e9c46a"/>`;
+const pal=["#fff4dc","#f6e3b0","#e8a317","#fbe9c0","#e07a1f","#fffaf0"];
+for(let i=0;i<300;i++){const a=r()*6.283,d=Math.sqrt(r())*138;s+=`<ellipse cx="${(200+Math.cos(a)*d*1.05).toFixed(0)}" cy="${(198+Math.sin(a)*d*.94).toFixed(0)}" rx="7" ry="2.3" transform="rotate(${(r()*180).toFixed(0)} ${(200+Math.cos(a)*d*1.05).toFixed(0)} ${(198+Math.sin(a)*d*.94).toFixed(0)})" fill="${pal[Math.floor(r()*pal.length)]}"/>`}
+const n=fam?8:6;
+for(let i=0;i<n;i++){const a=i/n*6.283+.4,x=200+Math.cos(a)*(fam?84:70),y=196+Math.sin(a)*(fam?76:64),d=(a*57+30).toFixed(0);
+s+=`<g transform="rotate(${d} ${x.toFixed(0)} ${y.toFixed(0)})"><ellipse cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" rx="31" ry="20" fill="${meat[i%2]}"/><ellipse cx="${(x-6).toFixed(0)}" cy="${(y-6).toFixed(0)}" rx="15" ry="7" fill="#fff" opacity=".18"/></g>`}
+for(let i=0;i<16;i++){const a=r()*6.283,d=r()*120;s+=`<ellipse cx="${(200+Math.cos(a)*d).toFixed(0)}" cy="${(198+Math.sin(a)*d*.9).toFixed(0)}" rx="10" ry="2.6" transform="rotate(${(r()*180).toFixed(0)} ${(200+Math.cos(a)*d).toFixed(0)} ${(198+Math.sin(a)*d*.9).toFixed(0)})" fill="#7b4a1e"/>`}
+for(let i=0;i<7;i++){const a=r()*6.283,d=r()*70;s+=`<ellipse cx="${(200+Math.cos(a)*d).toFixed(0)}" cy="${(190+Math.sin(a)*d).toFixed(0)}" rx="10" ry="5" transform="rotate(${(r()*180).toFixed(0)} ${(200+Math.cos(a)*d).toFixed(0)} ${(190+Math.sin(a)*d).toFixed(0)})" fill="#3f8f4f"/>`}
+if(!fam)s+=`<ellipse cx="108" cy="306" rx="24" ry="17" fill="#fff5e0"/><circle cx="108" cy="306" r="8" fill="#f2b01e"/><ellipse cx="304" cy="308" rx="26" ry="12" transform="rotate(-28 304 308)" fill="#f4d03f"/><ellipse cx="304" cy="308" rx="18" ry="6" transform="rotate(-28 304 308)" fill="#fbe98a"/>`;
+else s+=`<ellipse cx="110" cy="305" rx="24" ry="17" fill="#fff5e0"/><circle cx="110" cy="305" r="8" fill="#f2b01e"/><ellipse cx="292" cy="310" rx="24" ry="17" fill="#fff5e0"/><circle cx="292" cy="310" r="8" fill="#f2b01e"/>`;
+return s+"</svg>"}
+document.querySelectorAll("[data-plate]").forEach(e=>e.innerHTML=plate(e.dataset.plate,+e.dataset.steam||0));
+$("#menuGrid").innerHTML=MENU.map(m=>`<article class="item rv${m.deal?" deal":""}"><div class="art" role="img" aria-label="Illustration of ${m.name}">${plate(m.v,0)}</div><div class="body">${m.deal?'<span class="badge">Sample deal</span>':""}<h3>${m.name}</h3><p>${m.desc}</p><div class="row"><div class="price">${fmt(m.price)}<small>Sample price, illustrative</small></div><button class="add" data-id="${m.id}">Add to demo cart</button></div></div></article>`).join("");
+let tt;function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("on"),1800)}
+function render(){const ids=Object.keys(cart).filter(k=>cart[k]>0);let tot=0,c=0;
+$("#lines").innerHTML=ids.length?ids.map(id=>{const m=MENU.find(x=>x.id===id);tot+=m.price*cart[id];c+=cart[id];return`<div class="line"><div><strong>${m.name}</strong><div class="qty"><button data-d="-1" data-id="${id}" aria-label="Remove one">&minus;</button><span>${cart[id]}</span><button data-d="1" data-id="${id}" aria-label="Add one">+</button></div></div><span>${fmt(m.price*cart[id])}</span></div>`}).join(""):'<p class="empty">Your demo cart is empty. Add a dish from the menu to see how the total updates.</p>';
+$("#total").textContent=fmt(tot);$("#count").textContent=c;$("#enquire").disabled=!ids.length;$("#enquire").style.opacity=ids.length?1:.5}
+function drawer(o){$("#drawer").classList.toggle("on",o);$("#drawer").setAttribute("aria-hidden",!o);$("#veil").classList.toggle("on",o);if(!o)$("#modal").classList.remove("on")}
+function message(){const ids=Object.keys(cart).filter(k=>cart[k]>0);if(!ids.length)return"Assalam-o-Alaikum! (DEMO MESSAGE) I would like to ask about your menu and delivery in Hyderabad.";
+let t=0;const l=ids.map(id=>{const m=MENU.find(x=>x.id===id);t+=m.price*cart[id];return`- ${cart[id]} x ${m.name}`});
+return`Assalam-o-Alaikum! (DEMO MESSAGE) I would like to enquire about:\n${l.join("\n")}\nEstimated total: ${fmt(t)} (illustrative)\nPlease confirm availability and delivery to my area.`}
+function modal(){const m=message();$("#msg").textContent=m;$("#link").textContent="https://wa.me/920000000000?text="+encodeURIComponent(m);$("#modal").classList.add("on");$("#veil").classList.add("on")}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+if(b.classList.contains("add")){cart[b.dataset.id]=(cart[b.dataset.id]||0)+1;render();toast("Added to demo cart")}
+else if(b.dataset.d){cart[b.dataset.id]+=+b.dataset.d;render()}});
+$("#openCart").onclick=()=>drawer(true);$("#closeCart").onclick=()=>drawer(false);
+$("#veil").onclick=()=>{drawer(false)};
+$("#enquire").onclick=modal;$("#waBtn").onclick=modal;
+$("#closeModal").onclick=()=>{$("#modal").classList.remove("on");if(!$("#drawer").classList.contains("on"))$("#veil").classList.remove("on")};
+$("#copy").onclick=async()=>{try{await navigator.clipboard.writeText($("#msg").textContent);toast("Message copied")}catch(e){toast("Copy not available here")}};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){drawer(false);$("#veil").classList.remove("on")}});
+$("#burger").onclick=()=>{const o=$("#nav").classList.toggle("open");$("#burger").setAttribute("aria-expanded",o)};
+$("#nav").addEventListener("click",e=>{if(e.target.tagName==="A")$("#nav").classList.remove("open")});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.15});
+document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+render();
+</script>
+</body>
+</html>
